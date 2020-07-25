@@ -32,7 +32,7 @@ export default function FlexbundleSdk(opts = {}) {
     function configure(opts = {}) {
         config.endpointUrl = opts.endpointUrl || config.endpointUrl;
         config.apiVersion = opts.apiVersion || config.apiVersion;
-        config.apiKey = opts.apiKey && `Bearer ${opts.apiKey}`;
+        config.apiKey = opts.apiKey;
         config.apiKeyHeader = opts.apiKeyHeader || config.apiKeyHeader;
     }
 

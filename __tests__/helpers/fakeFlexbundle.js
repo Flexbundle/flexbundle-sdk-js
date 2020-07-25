@@ -108,7 +108,7 @@ function startMock() {
     }
     
     function authMiddleware(req, res, next) {
-        if (req.get('-u') === `Bearer ${token}`) {
+        if (req.get('-u') === token) {
             next();
         } else {
             res.status(401).json({error: "Non authorized request"})
