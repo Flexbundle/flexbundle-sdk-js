@@ -1,8 +1,7 @@
 {
     "name": "flexbundle-sdk",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Flexbundle Javascript SDK",
-    "private": true,
     "scripts": {
         "test": "jest",
         "build": "jest && webpack -p"
@@ -17,9 +16,12 @@
         "low-code",
         "database"
     ],
-    "types": "types/flexbundle-sdk.d.ts",
     "license": "MIT",
     "homepage": "https://bitbucket.org/kfm/flex-sdk-js#readme",
+    "main": "./src/flexbundle-sdk.js",
+    "engines": {
+        "node": ">=8.0.0"
+    },
     "dependencies": {
         "axios": "^0.19.2",
         "body-parser": "^1.19.0",
