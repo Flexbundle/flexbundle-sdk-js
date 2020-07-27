@@ -4,7 +4,7 @@ import { fetch, localFetch } from "../utils/fetch";
 export default function Workspace(opts, workspaceId) {
 
     const workspaceConf = {
-        workspaceUrl: `${opts.endpointUrl}/${opts.apiVersion}/${workspaceId}`,
+        workspaceUrl: `${opts.endpointUrl}/${opts.apiVersion}/workspace/${workspaceId}`,
         fieldsUrl: `${opts.endpointUrl}/${opts.apiVersion}/field`,
         apiKey: opts.apiKey,
         apiKeyHeader: opts.apiKeyHeader,

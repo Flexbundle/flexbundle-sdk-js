@@ -64,27 +64,27 @@ function startMock() {
             res.json(fields);
         });
 
-        app.get("/v1/:workspaceId/object", (req, res) => {
+        app.get("/v1/workspace/:workspaceId/object", (req, res) => {
             res.json(data);
         });
 
-        app.get("/v1/:workspaceId/object/:id", (req, res) => {
+        app.get("/v1/workspace/:workspaceId/object/:id", (req, res) => {
             const object = _.find(data, obj => obj.id == req.params.id);
             res.json(object);
         });
 
-        app.post("/v1/:workspaceId/object", (req, res) => {
+        app.post("/v1/workspace/:workspaceId/object", (req, res) => {
             const obj = req.body || {};
             obj.id = data.length + 1;
             data.push(obj)
             res.json(obj);
         });
     
-        app.put("/v1/:workspaceId/object/:id", update);
+        app.put("/v1/workspace/:workspaceId/object/:id", update);
     
-        app.patch("/v1/:workspaceId/object/:id", update);
+        app.patch("/v1/workspace/:workspaceId/object/:id", update);
     
-        app.delete("/v1/:workspaceId/object/:id", (req, res) => {
+        app.delete("/v1/workspace/:workspaceId/object/:id", (req, res) => {
             const index = _.findIndex(data, o => o.id == req.params.id);
             const deleted = index !== -1 && data.splice(index, 1);
             res.json(deleted && deleted[0]);
