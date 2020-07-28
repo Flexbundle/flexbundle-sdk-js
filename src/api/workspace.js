@@ -107,11 +107,19 @@ function WorkspaceApi(conf) {
 
     async function fields() {
         const requestParams = getQueryString({ query: { workspace_id: conf.workspaceId } });
-        return await fetch(`${conf.fieldsUrl}?${requestParams}`, {
+        const fields = await fetch(`${conf.fieldsUrl}?${requestParams}`, {
             method: "GET",
             withCredentials: true,
             headers: getRequestHeader(conf.apiKey, conf.apiKeyHeader)
         });
+        fields && fields.forEach((field) => {
+            const helper = field && field.helper;
+            if(helper && (typeof helper === 'string' || helper instanceof String)) {
+                try { field.helper = JSON.parse(helper) } 
+                catch(e) {}
+            }
+        });
+        return fields;  
     }
 
 }

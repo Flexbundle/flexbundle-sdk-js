@@ -10,7 +10,8 @@ const token = "123";
 
 const fields = [
     {name: "col1", label: "First Name", type: "string", workspace_id: "123"},
-    {name: "col2", label: "Last Name", type: "string", workspace_id: "123"}
+    {name: "col2", label: "Last Name", type: "string", workspace_id: "123"},
+    {name: "col3", label: "Gender", type: "string", workspace_id: "123", helper: JSON.stringify([{value: "M"}, {value: "F"}])}
 ];
 
 const data = [
