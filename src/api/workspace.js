@@ -106,7 +106,11 @@ function WorkspaceApi(conf) {
     }
 
     async function fields() {
-        const requestParams = getQueryString({ query: { workspace_id: conf.workspaceId } });
+        const requestParams = getQueryString({ 
+            query: { 
+                workspace_id: conf.workspaceId 
+            }, sort: "order_x,id"
+        });
         const fields = await fetch(`${conf.fieldsUrl}?${requestParams}`, {
             method: "GET",
             withCredentials: true,
