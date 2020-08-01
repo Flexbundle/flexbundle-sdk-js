@@ -1,6 +1,7 @@
 import { isBrowser } from "./utils/requestUtil";
 import { EventBus } from "./utils/eventBus";
 import Workspace from "./api/workspace";
+import Users from "./api/users";
 import functionExecution from "./api/functions";
 
 if (isBrowser) { 
@@ -24,6 +25,7 @@ export default function FlexbundleSdk(opts = {}) {
     return Object.freeze({
         configure: configure,
         workspace: workspace,
+        users, users,
         execute: execute,
         publish: publish,
         subscribe: subscribe
@@ -38,6 +40,10 @@ export default function FlexbundleSdk(opts = {}) {
 
     function workspace(workspaceId) {
         return Workspace(config, workspaceId);
+    }
+
+    function users() {
+        return Users(config);
     }
 
     async function execute(functionName, options) {

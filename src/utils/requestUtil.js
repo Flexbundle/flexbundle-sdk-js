@@ -12,6 +12,24 @@ export const getRequestHeader = (apiKey, apiKeyHeader) => {
     return headers;
 }
 
+export const getDownloadRequestHeader = (apiKey, apiKeyHeader) => {
+    const headers = {};
+    if(apiKey) {
+        headers[apiKeyHeader] = apiKey;
+    }
+    return headers;
+}
+
+export const getUploadRequestHeader = (apiKey, apiKeyHeader) => {
+    const headers = {
+        "Content-Type": "multipart/form-data"
+    };
+    if(apiKey) {
+        headers[apiKeyHeader] = apiKey;
+    }
+    return headers;
+}
+
 export const getQueryString = (query) => {
     const params = [];
     map(keys(query), (key) => {

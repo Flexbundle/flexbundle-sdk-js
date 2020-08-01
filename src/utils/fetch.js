@@ -3,14 +3,22 @@ import axios from "axios";
 
 export function fetch(url, options) {
     return new Promise((resolve, reject) => {
-        axios({
+        options = options ||  {};
+        const request = {
             method: options.method || "get",
             url: url,
             data: options.body,
             headers: options.headers,
             params: options.params
-        }).then((response) => resolve(response.data))
-        .catch((error) => reject(error.response.data));
+        };
+        if(options.responseType) {
+            request.responseType = options.responseType;
+        }
+        axios(request).then(response => resolve(response.data))
+        .catch((error) => {
+            const response = error.response && error.response.data;
+            reject(response || error);
+        });
     });
 }
 
