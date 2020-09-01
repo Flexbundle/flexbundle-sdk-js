@@ -3,6 +3,7 @@ import { EventBus } from "./utils/eventBus";
 import Workspace from "./api/workspace";
 import Users from "./api/users";
 import functionExecution from "./api/functions";
+import Attachment from "./api/attachment";
 
 if (isBrowser) { 
     window.FlexbundleSdk = FlexbundleSdk; 
@@ -59,4 +60,7 @@ export default function FlexbundleSdk(opts = {}) {
         return EventBus.subscribe(topic, handler);
     }
 
+    function attachment() {
+        return Attachment(config);
+    }
 }
