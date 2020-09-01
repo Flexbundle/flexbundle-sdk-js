@@ -128,7 +128,7 @@ function WorkspaceApi(conf) {
         });
         return fields;  
     }
-
+    
     async function uploadFile(objectId, file, formData) {
         if(objectId && file) {
             const fileData = await fetch(`${conf.attachmentUrl}`, {
@@ -148,7 +148,7 @@ function WorkspaceApi(conf) {
                 headers: getUploadRequestHeader(conf.apiKey, conf.apiKeyHeader),
                 body: formData
             });
-            return response;
+            return fileData;
         }
         throw new Error("Object Id or file not provided!");    
     }
