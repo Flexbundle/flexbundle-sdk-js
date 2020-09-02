@@ -26,7 +26,7 @@ function AttachmentApi(conf) {
         destroy: destroy
     });
 
-    async function create(file, formData) {
+    async function create(file) {
         if(file) {
             const fileData = await fetch(`${conf.attachmentUrl}`, {
                 method: "POST",
@@ -37,7 +37,7 @@ function AttachmentApi(conf) {
                     workspace_id: conf.workspaceId
                 }
             });
-            formData = formData || new FormData();
+            let formData =  new FormData();
             formData.append("file", file);
             const response = await fetch(`${conf.attachmentUrl}/${fileData.id}/upload`, {
                 method: "POST",
