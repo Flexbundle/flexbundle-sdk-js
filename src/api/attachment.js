@@ -7,7 +7,7 @@ import { fetch, localFetch } from "../utils/fetch";
 export default function Attachment(opts) {
 
     const attachmentConf = {
-        attachmentURL: `${opts.endpointUrl}/${opts.apiVersion}/attachment`,
+        attachmentUrl: `${opts.endpointUrl}/${opts.apiVersion}/attachment`,
         apiKey: opts.apiKey,
         apiKeyHeader: opts.apiKeyHeader,
         apiVersion: opts.apiVersion
@@ -51,7 +51,7 @@ function AttachmentApi(conf) {
 
     async function update(attachment) {
         if (attachment && attachment.id) {
-            const response = await fetch(`${conf.attachmentURL}/${attachment.id}`, {
+            const response = await fetch(`${conf.attachmentUrl}/${attachment.id}`, {
                 method: "PUT",
                 headers: getRequestHeader(conf.apiKey, conf.apiKeyHeader),
                 body: attachment
@@ -63,7 +63,7 @@ function AttachmentApi(conf) {
 
     async function destroy(attachment) {
         if (attachment && attachment.id) {
-            const response = await fetch(`${conf.attachmentURL}/${attachment.id}`, {
+            const response = await fetch(`${conf.attachmentUrl}/${attachment.id}`, {
                 method: "DELETE",
                 headers: getRequestHeader(conf.apiKey, conf.apiKeyHeader)
             });
@@ -82,12 +82,8 @@ function AttachmentLocal(conf = {}) {
         destroy: destroy
     });
 
-    async function create(objectId, file) {
-        return await localFetch("workspace.uploadFile", {
-            workspaceId: conf.workspaceId,
-            objectId: objectId,
-            file: file
-        }, conf.apiVersion);
+    async function create(file) {
+        return await localFetch("attachment.create", { file: file }, conf.apiVersion);
     }
 
     async function update(attachment) {
