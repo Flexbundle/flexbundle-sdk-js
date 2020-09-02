@@ -29,7 +29,8 @@ export default function FlexbundleSdk(opts = {}) {
         users, users,
         execute: execute,
         publish: publish,
-        subscribe: subscribe
+        subscribe: subscribe,
+        attachment: attachment
     });
 
     function configure(opts = {}) {
