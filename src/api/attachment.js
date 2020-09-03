@@ -44,7 +44,7 @@ function AttachmentApi(conf) {
                 headers: getUploadRequestHeader(conf.apiKey, conf.apiKeyHeader),
                 body: formData
             });
-            return response;
+            return fileData;
         }
         throw new Error("File not provided!");    
     }
