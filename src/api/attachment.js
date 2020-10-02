@@ -26,7 +26,7 @@ function AttachmentApi(conf) {
         destroy: destroy
     });
 
-    async function create(file) {
+    async function create(file, uploadProgress) {
         if(file) {
             const fileData = await fetch(`${conf.attachmentUrl}`, {
                 method: "POST",
@@ -42,7 +42,8 @@ function AttachmentApi(conf) {
             const response = await fetch(`${conf.attachmentUrl}/${fileData.id}/upload`, {
                 method: "POST",
                 headers: getUploadRequestHeader(conf.apiKey, conf.apiKeyHeader),
-                body: formData
+                body: formData,
+                uploadProgress: uploadProgress
             });
             return fileData;
         }

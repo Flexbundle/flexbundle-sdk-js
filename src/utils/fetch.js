@@ -9,7 +9,8 @@ export function fetch(url, options) {
             url: url,
             data: options.body,
             headers: options.headers,
-            params: options.params
+            params: options.params,
+            onUploadProgress: options.uploadProgress || null
         };
         if(options.responseType) {
             request.responseType = options.responseType;
