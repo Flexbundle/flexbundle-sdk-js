@@ -1,4 +1,5 @@
-import { isBrowser, getQueryString, getRequestHeader } from "../utils/requestUtil";
+import { isBrowser, getQueryString, 
+    getRequestHeader, getDownloadRequestHeader } from "../utils/requestUtil";
 import { fetch, localFetch } from "../utils/fetch";
 
 export default function Workspace(opts, workspaceId) {
@@ -30,9 +31,7 @@ function WorkspaceApi(conf) {
         update: update,
         partialUpdate: partialUpdate,
         destroy: destroy,
-        fields: fields,
-        uploadFile: uploadFile,
-        downloadFile: downloadFile
+        fields: fields
     });
 
     async function get(query) {
@@ -128,42 +127,6 @@ function WorkspaceApi(conf) {
         });
         return fields;  
     }
-    
-    async function uploadFile(objectId, file, formData) {
-        if(objectId && file) {
-            const fileData = await fetch(`${conf.attachmentUrl}`, {
-                method: "POST",
-                headers: getRequestHeader(conf.apiKey, conf.apiKeyHeader),
-                body: {
-                    name: file.name,
-                    file_type: file.type,
-                    workspace_id: conf.workspaceId,
-                    item_id: objectId
-                }
-            });
-            formData = formData || new FormData();
-            formData.append("file", file);
-            const response = await fetch(`${conf.attachmentUrl}/${fileData.id}/upload`, {
-                method: "POST",
-                headers: getUploadRequestHeader(conf.apiKey, conf.apiKeyHeader),
-                body: formData
-            });
-            return fileData;
-        }
-        throw new Error("Object Id or file not provided!");    
-    }
-
-    async function downloadFile(fileId) {
-      if(fileId) {
-        const response = await fetch(`${conf.attachmentUrl}/${fileId}/download`, {
-            method: "GET",
-            headers: getDownloadRequestHeader(conf.apiKey, conf.apiKeyHeader),
-            responseType: "blob"
-        });
-        return response;
-      }
-      throw new Error("File Id not provided!");    
-    }
 
 }
 
@@ -176,9 +139,7 @@ function WorkspaceLocal(conf = {}) {
         update: update,
         partialUpdate: partialUpdate,
         destroy: destroy,
-        fields: fields,
-        uploadFile: uploadFile,
-        downloadFile: downloadFile
+        fields: fields
     });
 
     async function get(query) {
@@ -226,21 +187,6 @@ function WorkspaceLocal(conf = {}) {
     async function fields() {
         return await localFetch("workspace.fields", {
             workspaceId: conf.workspaceId
-        }, conf.apiVersion);
-    }
-
-    async function uploadFile(objectId, file) {
-        return await localFetch("workspace.uploadFile", {
-            workspaceId: conf.workspaceId,
-            objectId: objectId,
-            file: file
-        }, conf.apiVersion);
-    }
-
-    async function downloadFile(fileId) {
-        return await localFetch("workspace.downloadFile", {
-            workspaceId: conf.workspaceId,
-            fileId: fileId
         }, conf.apiVersion);
     }
 
