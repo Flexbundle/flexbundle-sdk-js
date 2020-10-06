@@ -31,7 +31,6 @@ function AttachmentApi(conf) {
         if(file) {
             metadata = metadata || {};
             if(!metadata.id) {
-                method = "PUT";
                 metadata = await fetch(`${conf.attachmentUrl}`, {
                     method: "POST",
                     headers: getRequestHeader(conf.apiKey, conf.apiKeyHeader),
