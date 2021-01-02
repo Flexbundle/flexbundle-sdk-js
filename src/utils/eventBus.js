@@ -58,7 +58,7 @@ export const EventBus = (() => {
     function publishOnParent(method, data, version) {
         if(isBrowser && window.parent) {
             const requestId = nanoid();
-            window.parent.postMessage({ method, data, requestId, version }, "*");
+            window.parent.postMessage({ method, data, requestId, version }, document.referrer);
             disposableTopics.push(requestId);
             return requestId;
         }

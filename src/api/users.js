@@ -1,6 +1,6 @@
 import { 
     isBrowser, getQueryString, getRequestHeader, 
-    getDownloadRequestHeader, getUploadRequestHeader 
+    getDownloadRequestHeader 
 } from "../utils/requestUtil";
 import { fetch, localFetch } from "../utils/fetch";
 

@@ -28,6 +28,13 @@ const users = [
     { id: 4, name: "Elton Doe", email: "elton@doe.test", active: true }
 ];
 
+const groups = [
+    { id: 1, name: "Group 1" },
+    { id: 2, name: "Group 2" },
+    { id: 3, name: "Group 3" },
+    { id: 4, name: "Group 4" }
+];
+
 let server = null;
 
 beforeAll(async () => {
@@ -53,6 +60,7 @@ export function fakeFlexbundle() {
 }
 
 export function fakeLocalFlexbundle() {
+    Object.defineProperty(document, 'referrer', { value: "*" });
     return FlexbundleSdk({ apiVersion: "v1" });
 }
 
@@ -127,6 +135,35 @@ function startMock() {
             res.json(deleted && deleted[0]);
         });
 
+        app.get("/v1/group", (req, res) => { res.json(groups) });
+
+        app.get("/v1/group/:id", (req, res) => {
+            const group = _.find(groups, g => g.id == req.params.id);
+            res.json(group);
+        });
+
+        app.post("/v1/group", (req, res) => {
+            const group = req.body || {};
+            group.id = group.length + 1;
+            groups.push(group)
+            res.json(group);
+        });
+
+        app.put("/v1/group/:id", (req, res) => {
+            const group = _.find(groups, g => g.id == req.params.id);
+            if (!group) {
+                res.status(400).json({ error: "Group not found" });
+            } else {
+                res.json(_.extend(group, req.body || {}));
+            }
+        });
+
+        app.delete("/v1/group/:id", (req, res) => {
+            const index = _.findIndex(groups, g => g.id == req.params.id);
+            const deleted = index !== -1 && groups.splice(index, 1);
+            res.json(deleted && deleted[0]);
+        });
+
         app.post("/v1/function/dummy/execute", (req, res) => {
             res.json(req.body);
         });
@@ -179,7 +216,11 @@ function startLocalMock() {
                     const users = flexbundleSdk.users();
                     data = await users[requestName]
                         (requestData.query || requestData.user || requestData.id);
-                }else if (requestType === "functions") {
+                } else if (requestType === "group") {
+                    const groups = flexbundleSdk.groups();
+                    data = await groups[requestName]
+                        (requestData.query || requestData.group || requestData.id);
+                } else if (requestType === "functions") {
                     data = await flexbundleSdk.execute(requestData.function, requestData.data);
                 } else {
                     error = `Unknow request type ${requestType}`;

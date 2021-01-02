@@ -82,6 +82,42 @@ describe("Flexbundle API", () => {
         expect(user.id).toBe(3);
     });
 
+    it("makes a get groups request", async () => {
+        const Flexbundle = fakeFlexbundle();
+        const groups = await Flexbundle.groups().get();
+        expect(groups.length).toBeGreaterThan(0);
+    });
+
+    it("makes a get group by id request", async () => {
+        const Flexbundle = fakeFlexbundle();
+        const group = await Flexbundle.groups().getById(1);
+        expect(group.name).toBeDefined();
+    });
+
+    it("makes a create group request", async () => {
+        const Flexbundle = fakeFlexbundle();
+        const group = await Flexbundle.groups().create(
+            { name: "Dummy Group" }
+        );
+        expect(group.id).toBeDefined();
+    });
+
+    it("makes a update group request", async () => {
+        const Flexbundle = fakeFlexbundle();
+        const group = await Flexbundle.groups().update(
+            { id: 1, name: "Dummy Group Updated" }
+        );
+        expect(group.name).toBe("Dummy Group Updated");
+    });
+
+    it("makes a destroy group request", async () => {
+        const Flexbundle = fakeFlexbundle();
+        const group = await Flexbundle.groups().destroy(
+            { id: 3 }
+        );
+        expect(group.id).toBe(3);
+    });
+
     it("makes a functions request", async () => {
         const Flexbundle = fakeFlexbundle();
         const response = await Flexbundle.execute("dummy", {
@@ -179,6 +215,42 @@ describe("Flexbundle Local (Iframe)", () => {
             { id: 4 }
         );
         expect(user.id).toBe(4);
+    });
+
+    it("makes a get groups request from local", async () => {
+        const Flexbundle = fakeLocalFlexbundle();
+        const groups = await Flexbundle.groups().get();
+        expect(groups.length).toBeGreaterThan(0);
+    });
+
+    it("makes a get group by id request from local", async () => {
+        const Flexbundle = fakeLocalFlexbundle();
+        const group = await Flexbundle.groups().getById(1);
+        expect(group.name).toBeDefined();
+    });
+
+    it("makes a create group request from local", async () => {
+        const Flexbundle = fakeLocalFlexbundle();
+        const group = await Flexbundle.groups().create(
+            { name: "Dummy Group" }
+        );
+        expect(group.id).toBeDefined();
+    });
+
+    it("makes a update group request from local", async () => {
+        const Flexbundle = fakeLocalFlexbundle();
+        const group = await Flexbundle.groups().update(
+            { id: 1, name: "Group Updated Local" }
+        );
+        expect(group.name).toBe("Group Updated Local");
+    });
+
+    it("makes a destroy group from local", async () => {
+        const Flexbundle = fakeLocalFlexbundle();
+        const group = await Flexbundle.groups().destroy(
+            { id: 4 }
+        );
+        expect(group.id).toBe(4);
     });
 
     it("makes a functions  request", async () => {

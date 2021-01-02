@@ -2,6 +2,7 @@ import { isBrowser } from "./utils/requestUtil";
 import { EventBus } from "./utils/eventBus";
 import Workspace from "./api/workspace";
 import Users from "./api/users";
+import Groups from "./api/groups";
 import functionExecution from "./api/functions";
 import Attachment from "./api/attachment";
 
@@ -27,6 +28,7 @@ export default function FlexbundleSdk(opts = {}) {
         configure: configure,
         workspace: workspace,
         users, users,
+        groups: groups,
         execute: execute,
         publish: publish,
         subscribe: subscribe,
@@ -46,6 +48,10 @@ export default function FlexbundleSdk(opts = {}) {
 
     function users() {
         return Users(config);
+    }
+
+    function groups() {
+        return Groups(config);
     }
 
     async function execute(functionName, options) {
