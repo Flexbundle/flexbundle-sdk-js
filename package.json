@@ -1,6 +1,6 @@
 {
     "name": "flexbundle-sdk",
-    "version": "0.0.95",
+    "version": "0.0.96",
     "description": "Flexbundle Javascript SDK",
     "scripts": {
         "test": "jest",
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://kfm@bitbucket.org/kfm/flex-sdk-js.git"
+        "url": "git+https://github.com/Flexbundle/flexbundle-sdk-js.git"
     },
     "keywords": [
         "Flexbundle",
@@ -17,7 +17,7 @@
         "database"
     ],
     "license": "MIT",
-    "homepage": "https://bitbucket.org/kfm/flex-sdk-js#readme",
+    "homepage": "https://github.com/Flexbundle/flexbundle-sdk-js",
     "main": "./src/flexbundle-sdk.js",
     "engines": {
         "node": ">=8.0.0"
