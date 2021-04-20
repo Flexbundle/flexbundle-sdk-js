@@ -1,6 +1,6 @@
 {
     "name": "flexbundle-sdk",
-    "version": "0.0.94",
+    "version": "0.0.95",
     "description": "Flexbundle Javascript SDK",
     "scripts": {
         "test": "jest",
@@ -23,7 +23,7 @@
         "node": ">=8.0.0"
     },
     "dependencies": {
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
         "express": "^4.17.1",
