@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import { isBrowser } from "./utils/requestUtil";
 import { EventBus } from "./utils/eventBus";
 import Workspace from "./api/workspace";
@@ -35,12 +36,13 @@ export default function FlexbundleSdk(opts = {}) {
         attachment: attachment
     });
 
-    function configure(opts) {
-        opts = opts || {};
-        config.endpointUrl = opts.endpointUrl || config.endpointUrl;
-        config.apiVersion = opts.apiVersion || config.apiVersion;
-        config.apiKey = opts.apiKey;
-        config.apiKeyHeader = opts.apiKeyHeader || config.apiKeyHeader;
+    function configure(opts = {}) {
+        if(!isEmpty(opts)) {
+            config.endpointUrl = opts.endpointUrl || config.endpointUrl;
+            config.apiVersion = opts.apiVersion || config.apiVersion;
+            config.apiKey = opts.apiKey;
+            config.apiKeyHeader = opts.apiKeyHeader || config.apiKeyHeader;
+        }
     }
 
     function workspace(workspaceId) {
@@ -55,13 +57,17 @@ export default function FlexbundleSdk(opts = {}) {
         return Groups(config);
     }
 
-    async function execute(functionName, options) {
+    async function execute(functionUrl, options) {
         return await functionExecution(config)
-            .execute(functionName, options);
+            .execute(functionUrl, options);
     }
 
-    function publish(topic, data) {
-        EventBus.publish(topic, data);
+    function publish(topic, data, parent) {
+        if(parent) {
+            EventBus.publishOnParent(topic, data, config.apiVersion);
+        } else {
+            EventBus.publish(topic, data);
+        }
     }
 
     function subscribe(topic, handler) {

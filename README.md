@@ -206,6 +206,8 @@ const data = await flexbundleSdk.execute(<YOUR_FUNCTION_NAME>, {
 
 When used for client-side development, Flexbundle SDK allows you to interact (via iframe) with the Flexbundle platform. You can subscribe to events (e.g. object creation), allowing your application to react to events performed by the user in the Flexbundle platform.
 
+### `subscribe(<TOPIC_TO_LISTEN>, handler)`
+
 To subscribe to an event:
 
 ```js
@@ -218,8 +220,59 @@ unsubscribe();
 
 You can subscribe to the following events:
 
-| Event | Description |
-|--|--|
-| `o-save` | When an object is created or updated |
-| `o-delete` | When an object is deleted |
-| `o-bulk-save-done` | When a bulk save objects is performed |
+| Event           | Description                          |
+|-----------------|--------------------------------------|
+| `object.save`   | When an object is created or updated |
+| `object.delete` | When an object is deleted            |
+
+### `publish(<TOPIC_TO_PUBLISH>, data, parent)`
+
+To publish to an event:
+
+```js
+flexbundleSdk.publish(<TOPIC_TO_PUBLISH>, data, true);
+```
+When parent is set to `true` the message will be posted on Flexbundle. The following messages can be posted:
+
+#### toast
+
+This message topic will post a subtle notification to users:
+
+```js
+flexbundleSdk.publish("toast", {
+    message: "Hello World",
+    type: "success", //by default the type of message is "success". You can also use "warning" and "error" message types.
+    dismissible: true, //by default it's true. If false, users cannot dismiss the message.
+    clean: false, //by default it's false. If true, all previous messages will be cleaned before showing this one.
+}, true);
+```
+
+#### goto.login
+
+This message topic will redirected the user to the login page:
+
+```js
+flexbundleSdk.publish("goto.login", {}, true);
+```
+
+#### open.cockpit
+
+This message topic will open the object's cockpit page:
+
+```js
+flexbundleSdk.publish("open.cockpit", {
+  id: "<THE OBJECT ID>",
+  workspaceId: "<THE WORKSPACE ID>"
+}, true);
+```
+
+#### open.form
+
+This message topic will open the object's edit/create form:
+
+```js
+flexbundleSdk.publish("open.form", {
+  id: "<THE OBJECT ID>", //leave it empty if you want to create a new object
+  workspaceId: "<THE WORKSPACE ID>"
+}, true);
+```

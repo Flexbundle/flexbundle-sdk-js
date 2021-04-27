@@ -13,12 +13,13 @@ export default function functionExecution (opts) {
 
     return Object.freeze({ execute: execute });
 
-    async function execute(functionName, options = {}) {
-        if(functionName) {
+    async function execute(functionUrl, options = {}) {
+        if(functionUrl) {
+            options = options || {};
             if(functionsConf.apiKey) {
-                return  await executeApiFunction(functionName, options.method, options.data);
+                return  await executeApiFunction(functionUrl, options.method, options.data);
             } else if(isBrowser) {
-                return await executeLocalFunction(functionName, options.method, options.data);
+                return await executeLocalFunction(functionUrl, options.method, options.data);
             } else {
                 throw new Error("No api key provided for function!");
             }
@@ -27,8 +28,8 @@ export default function functionExecution (opts) {
         }
     }
 
-    async function executeApiFunction(functionName, method, data) {
-        return await fetch(`${functionsConf.functionsUrl}/${functionName}/execute`, {
+    async function executeApiFunction(functionUrl, method, data) {
+        return await fetch(`${functionsConf.functionsUrl}/${functionUrl}/execute`, {
             method: toUpper(method) || "GET",
             withCredentials: true,
             credentials: "include",
@@ -37,10 +38,10 @@ export default function functionExecution (opts) {
         });
     }
     
-    async function executeLocalFunction(functionName, method, data) {
+    async function executeLocalFunction(functionUrl, method, data) {
         return await localFetch("functions.execute", {
             method: toUpper(method) || "GET",
-            function: functionName,  
+            function: functionUrl,  
             data: data
         }, functionsConf.apiVersion);
     }
