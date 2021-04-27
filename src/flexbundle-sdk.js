@@ -35,7 +35,8 @@ export default function FlexbundleSdk(opts = {}) {
         attachment: attachment
     });
 
-    function configure(opts = {}) {
+    function configure(opts) {
+        opts = opts || {};
         config.endpointUrl = opts.endpointUrl || config.endpointUrl;
         config.apiVersion = opts.apiVersion || config.apiVersion;
         config.apiKey = opts.apiKey;

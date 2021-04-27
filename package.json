@@ -1,6 +1,6 @@
 {
     "name": "flexbundle-sdk",
-    "version": "0.0.96",
+    "version": "0.0.97",
     "description": "Flexbundle Javascript SDK",
     "scripts": {
         "test": "jest",

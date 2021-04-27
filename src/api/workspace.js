@@ -137,7 +137,7 @@ function WorkspaceLocal(conf = {}) {
         getById: getById,
         create: create,
         update: update,
-        partialUpdate: partialUpdate,
+        /*partialUpdate: partialUpdate,*/
         destroy: destroy,
         fields: fields
     });

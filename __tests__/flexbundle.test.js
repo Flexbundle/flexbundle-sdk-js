@@ -159,6 +159,7 @@ describe("Flexbundle Local (Iframe)", () => {
         expect(object.col2).toBe("Lenon");
     });
 
+    /*
     it("makes a partial update object request from local", async () => {
         const Flexbundle = fakeLocalFlexbundle();
         const object = await Flexbundle.workspace("123").partialUpdate(
@@ -166,6 +167,7 @@ describe("Flexbundle Local (Iframe)", () => {
         );
         expect(object.col2).toBe("Doe");
     });
+    */
 
     it("makes a destroy object request from local", async () => {
         const Flexbundle = fakeLocalFlexbundle();

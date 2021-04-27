@@ -169,19 +169,6 @@ const data = await workspace.update({
 }); 
 ```
 
-### `partialUpdate(object)`
-
-Updates partially an object. 
-
-Example request:
-
-```js
-const data = await workspace.update({
-    id: <YOUR_OBJECT_ID>
-    col2: "Lenon"
-}); 
-```
-
 ### `destroy(object)`
 
 Deletes an object. 
