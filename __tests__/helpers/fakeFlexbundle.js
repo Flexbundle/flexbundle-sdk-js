@@ -39,7 +39,9 @@ let server = null;
 
 beforeAll(async () => {
     startLocalMock();
-    server = await startMock();
+    if(!server || server.listening) {
+        server = await startMock();
+    }    
 });
 
 afterAll(async () => {
@@ -61,7 +63,10 @@ export function fakeFlexbundle() {
 
 export function fakeLocalFlexbundle() {
     Object.defineProperty(document, 'referrer', { value: "*" });
-    return FlexbundleSdk({ apiVersion: "v1" });
+    return FlexbundleSdk({ 
+        endpointUrl: `http://localhost:${port}`,
+        apiVersion: "v1" 
+    });
 }
 
 function startMock() {
@@ -164,10 +169,10 @@ function startMock() {
             res.json(deleted && deleted[0]);
         });
 
-        app.post("/v1/function/dummy/execute", (req, res) => {
+        app.post("/v1/function/1234567f/dummy", (req, res) => {
             res.json(req.body);
         });
-
+        
         const server = app.listen(port, () => resolve(server));
 
     });

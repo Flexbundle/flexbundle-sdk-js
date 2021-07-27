@@ -120,7 +120,7 @@ describe("Flexbundle API", () => {
 
     it("makes a functions request", async () => {
         const Flexbundle = fakeFlexbundle();
-        const response = await Flexbundle.execute("dummy", {
+        const response = await Flexbundle.execute("1234567f/dummy", {
             method: "post",
             data: { firstName: "abc" }
         })
@@ -257,7 +257,7 @@ describe("Flexbundle Local (Iframe)", () => {
 
     it("makes a functions  request", async () => {
         const Flexbundle = fakeLocalFlexbundle();
-        const response = await Flexbundle.execute("dummy", {
+        const response = await Flexbundle.execute("1234567f/dummy", {
             method: "post",
             data: { firstName: "abc" }
         })
